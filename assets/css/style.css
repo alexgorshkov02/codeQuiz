@@ -1,0 +1,22 @@
+header div {
+    text-align: center;
+    padding: 30px;
+}
+
+.top_section{
+    display: flex;
+    justify-content: space-between;
+}
+
+section div {
+    text-align: center;
+}
+
+h3 {
+    margin: 2px;
+    font-weight: normal;
+}
+
+#startButton {
+    margin: 30px;
+}
