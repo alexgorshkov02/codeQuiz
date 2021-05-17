@@ -120,6 +120,10 @@ function modifyArea(area, questionNumber) {
 }
 
 function finishQuiz() {
+    clearInterval(timer);        
+    var timerTime = document.querySelector("#timer");
+    timerTime.textContent = 0;
+
     clearArea(pageIDs.mainArea);
     clearArea(pageIDs.answersArea);
 
@@ -176,7 +180,6 @@ function repeatEverySecond() {
 function timerDecrementer() {
 
     if (timerValue === 0) {
-        clearInterval(timer);
         finishQuiz();
         return;
 
