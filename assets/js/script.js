@@ -5,72 +5,163 @@ var pageIDs = {
 }
 
 var questions = [
-    { q: "Question1", t: "Answer1", f1: "dssfdsfdgfg1", f2: "dssfdsfdgfg2", f3: "dssfdsfdgfg3" },
-    { q: "Question2", t: "Answer2", f1: "dssfdsfdgfg1", f2: "dssfdsfdgfg2", f3: "dssfdsfdgfg3" },
-    { q: "Question3", t: "Answer3", f1: "dssfdsfdgfg1", f2: "dssfdsfdgfg2", f3: "dssfdsfdgfg3" },
-    { q: "Question4", t: "Answer4", f1: "dssfdsfdgfg1", f2: "dssfdsfdgfg2", f3: "dssfdsfdgfg3" },
-    { q: "Question5", t: "Answer5", f1: "dssfdsfdgfg1", f2: "dssfdsfdgfg2", f3: "dssfdsfdgfg3" },
-    { q: "Question6", t: "Answer6", f1: "dssfdsfdgfg1", f2: "dssfdsfdgfg2", f3: "dssfdsfdgfg3" },
+    {
+        question: "Question1",
+        t: "Answer1",
+        f1: "dssfdsfdgfg1",
+        f2: "dssfdsfdgfg2",
+        f3: "dssfdsfdgfg3"
+    },
+
+    {
+        question: "Question2",
+        t: "Answer2",
+        f1: "dssfdsfdgfg1",
+        f2: "dssfdsfdgfg2",
+        f3: "dssfdsfdgfg3"
+    },
+
+    {
+        question: "Question3",
+        t: "Answer3",
+        f1: "dssfdsfdgfg1",
+        f2: "dssfdsfdgfg2",
+        f3: "dssfdsfdgfg3"
+    }
 ]
 
+var finalScore = 0;
 
-// function showQuestion()
+// function getFinalScore() {
+//     return finalScore;
+// }
 
-function selectAnswer() {
-    // Select the answers area
-    var answersArea = document.getElementById(pageIDs.answersArea);
-    answersArea.addEventListener("click", function (e) {
-        console.log(e.target);
-        startQuiz();
-    })
+// function setFinalScore(finalScore) {
+//     finalScore = finalScore;
+// }
+
+// function addPoints(points) {
+//     var finalScore = getFinalScore();
+//     finalScore = + points;
+//     setFinalScore(finalScore);
+// }
+
+var questionCounter = 0;
+
+// function getQuestionCounter() {
+//     return questionCounter;
+// }
+
+// function setQuestionCounter(questionCounter) {
+//     questionCounter = questionCounter;
+// }
+
+
+function modifyArea(area, questionNumber) {
+    // Select an area to change
+    var modifiedArea = document.getElementById(area);
+    modifiedArea.textContent = "";
+
+    if (area === pageIDs.mainArea) {
+        console.log(questionNumber);
+        console.log(questions);
+        console.log(questions[questionNumber]);
+        console.log(questions[questionNumber].question);
+        modifiedArea.innerHTML = questions[questionNumber].question;
+        modifiedArea.setAttribute("class", "question")
+        modifiedArea.setAttribute("data-question", i);
+    }
+
+    if (area === pageIDs.answersArea) {
+        var answers = [];
+        answers = questions[questionNumber];
+        // console.log(answers);
+        delete answers.question;
+        // console.log(answers);
+        answers = Object.values(answers);
+        // console.log(answers);
+
+        for (var i = 0; i < answers.length; i++) {
+            var div = document.createElement('div');
+            var answer = modifiedArea.appendChild(div);
+            answer.setAttribute("class", "answer")
+            answer.setAttribute("id", i);
+            answer.innerHTML = answers[i];
+
+            // Listener for each answer
+            answer.addEventListener("click", function (e) {
+                selectedAnswer = e.target;
+                // console.log("selectedAnswer: ", selectedAnswer);
+
+                if (selectedAnswer !== null) {
+                    var selectedAnswerText = selectedAnswer.textContent.toLowerCase();
+                    console.log(selectedAnswerText);
+                }
+                // console.log("1problem");
+                // console.log(selectedAnswerText);
+                // console.log("2problem");
+                // console.log(questions[questionNumber].t.toLowerCase());
+                if (selectedAnswerText === questions[questionNumber].t.toLowerCase()) {
+                    finalScore++;
+                }
+                //Check if we reached the last question
+                if ((questions.length - 1) === questionNumber) {
+                    var modifiedArea = document.getElementById(pageIDs.mainArea);
+                    modifiedArea.textContent = "";
+                    var modifiedArea = document.getElementById(pageIDs.answersArea);
+                    modifiedArea.textContent = "";
+                    alert("Your final score is: " + finalScore);
+                } else {
+                    showNextQuestion();
+                }
+            })
+
+        }
+    }
+    modifiedArea.style.textAlign = "center";
+    modifiedArea.style.display = "flex";
+    modifiedArea.style.flexDirection = "column";
+}
+
+
+function calculatenextQuestion(questionsArray) {
+    // Choose a random question
+    var questions = questionsArray;
+    var i = Math.floor(Math.random() * questions.length);
+
+    // Indexed object: a question and all answers
+    var chosenQuestion = questions[i];
+
+    return chosenQuestion;
+}
+
+function showQuestion(questionNumber) {
+    modifyArea(pageIDs.mainArea, questionNumber);
+}
+
+function showAnswers(questionNumber) {
+    modifyArea(pageIDs.answersArea, questionNumber);
+}
+
+function showNextQuestion() {
+    // var questions = getQuestions();
+    // var chosenQuestion = calculatenextQuestion(questions);
+    // if (!questionCounter) {
+    //     setQuestionCounter(0);
+    // }
+
+    // console.log(questionCounter);
+    // var questionNumber = getQuestionCounter();
+    showQuestion(questionCounter);
+    showAnswers(questionCounter);
+    // console.log(questionNumber++);
+    // console.log(questionNumber+1);
+    questionCounter++;
+    // setQuestionCounter(questionNumber);
+    
 }
 
 function startQuiz() {
-    // Select the question area
-    var questionArea = document.getElementById(pageIDs.mainArea);
-    questionArea.style.textAlign = "center";
-    // Choose a random question
-    var i = Math.floor(Math.random() * questions.length)
-    questionArea.innerHTML = questions[i].q;
-
-    // console.log(questions);
-
-    // Select the answers area
-    var answersArea = document.getElementById(pageIDs.answersArea);
-    answersArea.style.textAlign = "center";
-    answersArea.style.display = "flex";
-    answersArea.style.flexDirection = "column";
-
-    // Indexed object: a question and all answers
-    chosenQuestion = questions[i];
-    // Remove the question
-    delete chosenQuestion.q;
-
-    // Convert answersArray object to an array of values
-    var choices = Object.values(chosenQuestion);
-
-    console.log(choices);
-
-    // Show all answers for an user
-    for (var j = 0; j < choices.length; j++) {
-        var div = document.createElement('div');
-        var answer = answersArea.appendChild(div);
-        answer.innerHTML = choices[j];
-    }
-    // Remove the shown object (the question and answers)
-    questions.splice(i, 1);
-
-    selectAnswer();
-};
-
-
-// console.log(document)
-
-// document.getElementById("startButton").addEventListener("click", function(e) {
-//     console.log(e.target);
-// });
-
-// document.getElementById("startButton").addEventListener('click', console.log(getInput()))
-
-
-// document.getElementById(mainArea).textContent = "dsfsdfds"
+    console.log(questionCounter);
+    showNextQuestion();
+}

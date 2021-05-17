@@ -20,3 +20,11 @@ h3 {
 #startButton {
     margin: 30px;
 }
+
+.question {
+    color: red;
+}
+
+.answer {
+    color: green;
+}
