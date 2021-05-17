@@ -57,10 +57,10 @@ var questionCounter = 0;
 // }
 
 
+var timerValue = 10;
+
 function modifyArea(area, questionNumber) {
-    // Select an area to change
-    var modifiedArea = document.getElementById(area);
-    modifiedArea.textContent = "";
+    var modifiedArea = clearArea(area);
 
     if (area === pageIDs.mainArea) {
         console.log(questionNumber);
@@ -106,11 +106,7 @@ function modifyArea(area, questionNumber) {
                 }
                 //Check if we reached the last question
                 if ((questions.length - 1) === questionNumber) {
-                    var modifiedArea = document.getElementById(pageIDs.mainArea);
-                    modifiedArea.textContent = "";
-                    var modifiedArea = document.getElementById(pageIDs.answersArea);
-                    modifiedArea.textContent = "";
-                    alert("Your final score is: " + finalScore);
+                    finishQuiz();
                 } else {
                     showNextQuestion();
                 }
@@ -123,16 +119,18 @@ function modifyArea(area, questionNumber) {
     modifiedArea.style.flexDirection = "column";
 }
 
+function finishQuiz() {
+    clearArea(pageIDs.mainArea);
+    clearArea(pageIDs.answersArea);
 
-function calculatenextQuestion(questionsArray) {
-    // Choose a random question
-    var questions = questionsArray;
-    var i = Math.floor(Math.random() * questions.length);
+    alert("Your final score is: " + finalScore);
+}
 
-    // Indexed object: a question and all answers
-    var chosenQuestion = questions[i];
-
-    return chosenQuestion;
+function clearArea(area) {
+    // Select an area to change
+    var modifiedArea = document.getElementById(area);
+    modifiedArea.textContent = "";
+    return modifiedArea;
 }
 
 function showQuestion(questionNumber) {
@@ -158,10 +156,43 @@ function showNextQuestion() {
     // console.log(questionNumber+1);
     questionCounter++;
     // setQuestionCounter(questionNumber);
-    
+
+}
+
+function delayTimer() {
+    timeoutID = setTimeout(delayedFunction, 3000);
+}
+
+function delayedFunction() {
+    alert("Three seconds have elapsed.");
+}
+
+var timer;
+
+function repeatEverySecond() {
+    timer = setInterval(timerDecrementer, 1000);
+}
+
+function timerDecrementer() {
+
+    if (timerValue === 0) {
+        clearInterval(timer);
+        finishQuiz();
+        return;
+
+    } else {
+        console.log("One second elapsed.");
+        var timerTime = document.querySelector("#timer");
+        timerValue--;
+        timerTime.textContent = timerValue;
+        console.log(timerValue);
+    }
 }
 
 function startQuiz() {
     console.log(questionCounter);
     showNextQuestion();
+
+    repeatEverySecond();
+
 }
