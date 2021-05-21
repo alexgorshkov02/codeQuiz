@@ -48,16 +48,17 @@ var finalScore = 0;
 
 var questionCounter = 0;
 
-// function getQuestionCounter() {
-//     return questionCounter;
-// }
+function getQuestionCounter() {
+    return questionCounter;
+}
 
-// function setQuestionCounter(questionCounter) {
-//     questionCounter = questionCounter;
-// }
+function setQuestionCounter(questionCounter) {
+    questionCounter = questionCounter;
+}
 
 
 var timerValue = 10;
+var punishTime = 5;
 
 function modifyArea(area, questionNumber) {
     var modifiedArea = clearArea(area);
@@ -103,6 +104,8 @@ function modifyArea(area, questionNumber) {
                 // console.log(questions[questionNumber].t.toLowerCase());
                 if (selectedAnswerText === questions[questionNumber].t.toLowerCase()) {
                     finalScore++;
+                } else {
+                    timeSubtractor();
                 }
                 //Check if we reached the last question
                 if ((questions.length - 1) === questionNumber) {
@@ -179,7 +182,7 @@ function repeatEverySecond() {
 
 function timerDecrementer() {
 
-    if (timerValue === 0) {
+    if (timerValue <= 0) {
         finishQuiz();
         return;
 
@@ -192,10 +195,16 @@ function timerDecrementer() {
     }
 }
 
+function timeSubtractor() {
+    var timerTime = document.querySelector("#timer");
+    timerValue-=punishTime;
+    timerTime.textContent = timerValue;
+    console.log(timerValue);
+}
+
 function startQuiz() {
     console.log(questionCounter);
     showNextQuestion();
 
     repeatEverySecond();
-
 }
