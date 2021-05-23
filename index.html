@@ -10,23 +10,33 @@
 </head>
 
 <body>
-    <header class="top_section">
-        <div><h3>View high scores</h3></div>
-        <div><h3>Time: </h3><h3 id="timer">0</h3></div>
+    <header id="top_section">
+        <!-- <div><h3 onclick="showResults()" id="viewHighScores">View high scores</h3></div>
+        <div><h3>Time: </h3><h3 id="timer">0</h3></div> -->
     </header>
+
+    <section id="topScores">
+    </section>
+
     <section id="main_area">
-        <div><h1>Coding Quiz Challenge</h1></div>
+        <!-- <div><h1>Coding Quiz Challenge</h1></div>
         <div><h3>Try to answer the following code-related questions within the time limit.</h3></div>
         <div><h3>Keep in mind that incorrect answers will penalize your score/time</h3></div>
-        <div><h3>by ten seconds!</h3></div>
+        <div><h3>by ten seconds!</h3></div> -->
     </section>
 
     <section id ="answers_area">
-        <div>
+        <!-- <div>
             <button onclick="startQuiz()" id="startButton"> Start Quiz</button>
-        </div>
+        </div> -->
+    </section>
+
+    <section id="additional_buttons">
     </section>
 
     <script src = "./assets/js/script.js"></script>
+    <script>
+        mainPage();
+    </script>
 </body>
 </html>

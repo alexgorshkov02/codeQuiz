@@ -4,7 +4,7 @@ header div {
     padding: 30px;
 }
 
-.top_section{
+#top_section{
     display: flex;
     justify-content: space-between;
 }
@@ -29,3 +29,8 @@ h3 {
 .answer {
     color: green;
 }
+
+/* #answers_area {
+    align-items: center;
+    text-align: center;
+} */
