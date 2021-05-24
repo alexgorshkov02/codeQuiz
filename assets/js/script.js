@@ -104,14 +104,8 @@ function randomazerArray(array) {
 
 function modifyArea(area, questionNumber) {
   var modifiedArea = clearArea(area);
-  console.log("Area:" + area);
-  console.log("questionNumberBegin:" + questionNumber);
 
   if (area === pageIDs.mainArea) {
-    console.log(questionNumber);
-    console.log(questions);
-    console.log(questions[questionNumber]);
-    // console.log(questions[questionNumber].question);
     var questionValue = document.createElement("div");
     questionValue.innerHTML = questions[questionNumber].question;
     questionValue.setAttribute("class", "question");
@@ -121,26 +115,14 @@ function modifyArea(area, questionNumber) {
 
   if (area === pageIDs.answersArea) {
     var answers = [];
-    // var newAnswers = questions.map(function (x) {
-    //     return console.log("map Tests1234567: ",  x);
-    //     questions[questionNumber];
-    //     delete questions.question;
-    // });
-
     var answersWithQuestion = questions[questionNumber];
     answers.push(answersWithQuestion.t);
     answers.push(answersWithQuestion.f1);
     answers.push(answersWithQuestion.f2);
     answers.push(answersWithQuestion.f3);
 
-    console.log(questions);
-    console.log(answers);
-    delete answers.question;
-    console.log(questions);
-    console.log(answers);
     answers = Object.values(answers);
     answers = randomazerArray(answers);
-    // console.log(answers);
 
     for (var i = 0; i < answers.length; i++) {
       var divElement = document.createElement("div");
@@ -154,7 +136,6 @@ function modifyArea(area, questionNumber) {
       modifiedArea.append(divElement);
     }
   }
-  // modifiedArea.style.textAlign = "center";
   modifiedArea.style.display = "flex";
   modifiedArea.style.flexDirection = "column";
   modifiedArea.style.alignItems = "flex-start";
@@ -168,8 +149,6 @@ function finishQuiz() {
 
   clearArea(pageIDs.mainArea);
   clearArea(pageIDs.answersArea);
-
-  // document.getElementById(pageIDs.answersArea).removeEventListener('click', function (e){})
 
   saveResults();
 }
@@ -190,11 +169,8 @@ function showAnswers(questionNumber) {
 }
 
 function showNextQuestion() {
-  console.log("questionCounter_Before1: " + questionCounter);
   showQuestion(questionCounter);
   showAnswers(questionCounter);
-  console.log("questionCounter_Before2: " + questionCounter);
-  console.log("questionCounter_After: " + questionCounter);
 }
 
 var timer;
@@ -208,11 +184,9 @@ function timerDecrementer() {
     finishQuiz();
     return;
   } else {
-    // console.log("One second elapsed.");
     var timerTime = document.querySelector("#timer");
     timerValue--;
     timerTime.textContent = timerValue;
-    // console.log(timerValue);
   }
 }
 
@@ -220,7 +194,6 @@ function timeSubtractor() {
   var timerTime = document.querySelector("#timer");
   timerValue -= punishTime;
   timerTime.textContent = timerValue;
-  // console.log(timerValue);
 }
 
 function saveResults() {
@@ -231,7 +204,6 @@ function saveResults() {
   finalScoreText.style.margin = "auto";
 
   var answersArea = document.getElementById(pageIDs.answersArea);
-  console.log(answersArea);
   var div = document.createElement("div");
   answersArea.appendChild(div);
   answersArea.innerHTML =
@@ -267,11 +239,10 @@ function saveResults() {
     } else if (nameValue.length > 2) {
       alert("The initials can't be nore than 2 letters");
     } else {
-      // console.log("value123", value);
       playerItem = { name: nameValue, result: finalScore };
+
       // Get an exist array of the results or empty
       var players = getTopResults(amountTopResults);
-      // console.log("playerItem123", playerItem);
       players.push(playerItem);
       localStorage.setItem("players", JSON.stringify(players));
       buttonSaveResult.innerHTML = "";
@@ -283,7 +254,6 @@ function saveResults() {
 
 function getTopResults(amountResults) {
   var players = JSON.parse(localStorage.getItem("players") || "[]");
-  console.log(players);
 
   //Sorting for the score
   var sortedPlayers = players.sort(function (a, b) {
@@ -314,7 +284,6 @@ function showResults() {
   clearInterval(timer);
   clearAllSection();
   var mainArea = clearArea(pageIDs.mainArea);
-  // console.log(mainArea);
 
   var players = getTopResults(amountTopResults);
 
@@ -348,9 +317,6 @@ function showResults() {
   mainArea.style.width = "max-content";
   mainArea.style.margin = "auto";
   mainArea.style.alignItems = "normal";
-  // mainArea.style.textAlign = "center";
-  // mainArea.style.paddingLeft = "0px";
-  // mainArea.style.marginBottom = "0px";
 
   var topResults = clearArea(pageIDs.topResults);
   topResults.innerHTML = "<h1>TOP-" + amountTopResults + " Results:</h1>";
@@ -417,7 +383,6 @@ function delayTimerCorrectAnswer() {
 
 function clearCorrectAnswerField(correctAnswer) {
   clearArea(pageIDs.correctOrWrongArea);
-  console.log(correctAnswer);
   correctAnswer.innerHTML = "";
   lastQuestionChecker();
 }
@@ -433,7 +398,6 @@ function delayTimerWrongAnswer() {
 
 function clearCorrectAnswerField(wrongAnswer) {
   clearArea(pageIDs.correctOrWrongArea);
-  console.log(wrongAnswer);
   wrongAnswer.innerHTML = "";
   lastQuestionChecker();
 }
@@ -443,7 +407,6 @@ function mainPage() {
 
   // Top Section BEGIN
   var topSection = document.getElementById(pageIDs.topSection);
-  // console.log(topSection);
   var viewHighScoresContainer = document.createElement("div");
   var viewHighScores = document.createElement("h3");
   viewHighScores.setAttribute("id", pageIDs.viewHighScores);
@@ -501,7 +464,7 @@ function mainPage() {
   buttonStarQuiz.innerHTML = "Start Quiz";
   buttonStarQuizContainer.append(buttonStarQuiz);
   additionalSection.appendChild(buttonStarQuizContainer);
-  additionalSection.style.margin = 'auto';
+  additionalSection.style.margin = "auto";
   additionalSection.style.alignItems = "center";
 
   buttonStarQuiz.addEventListener("click", function () {
@@ -512,9 +475,8 @@ function mainPage() {
 
 function startQuiz() {
   resetValues();
-  // console.log(questionCounter);
-  // clearArea(pageIDs.additionalButtonsArea);
   clearArea(pageIDs.answersArea);
+
   showNextQuestion();
   repeatEverySecond();
 
@@ -522,16 +484,13 @@ function startQuiz() {
   document
     .getElementById(pageIDs.answersArea)
     .addEventListener("click", function (e) {
-      // e.stopPropagation();
       //Stop all listeners on the page (to fix an issue with double clicks after we start the quiz again)
       e.stopImmediatePropagation();
       if (e.target.classList.contains("answer")) {
         selectedAnswer = e.target;
-        // console.log("selectedAnswer: ", selectedAnswer);
-        console.log("test123:" + questionCounter);
+
         if (selectedAnswer !== null) {
           var selectedAnswerText = selectedAnswer.textContent.toLowerCase();
-          // console.log(selectedAnswerText);
         }
 
         if (selectedAnswerText === questions[questionCounter].t.toLowerCase()) {
@@ -541,7 +500,6 @@ function startQuiz() {
           delayTimerWrongAnswer();
           timeSubtractor();
         }
-        // console.log("questionNumber_inEvent: " + questionCounter);
       }
     });
 }
