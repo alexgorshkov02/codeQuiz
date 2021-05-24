@@ -78,7 +78,7 @@ var questions = [
   },
 ];
 
-var punishTime = 5;
+var punishTime = 10;
 var amountTopResults = 3;
 
 var finalScore = 0;
