@@ -448,7 +448,7 @@ function mainPage() {
   mainSection.appendChild(mainTextContainer);
   var mainTextH3Line2 = document.createElement("h3");
   mainTextH3Line2.innerHTML =
-    "Keep in mind that incorrect answers will penalize your score/time";
+    "Keep in mind that incorrect answers will penalize your time";
   mainTextContainer.appendChild(mainTextH3Line2);
   mainSection.appendChild(mainTextContainer);
   var mainTextH3Line3 = document.createElement("h3");
