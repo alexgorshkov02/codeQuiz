@@ -23,12 +23,41 @@ h3 {
 }
 
 .question {
-    color: red;
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    text-align: left;
 }
 
 .answer {
-    color: green;
+    color: white;
+    background-size: 1100px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 3px;
 }
+
+section div {
+    text-align: center; 
+    padding-left: 100px;
+    margin-bottom: 15px;
+}
+span.answer {
+    background-color: #351D73;
+    padding: 5px;
+}
+
+#viewHighScores {
+    color: #B152E3;
+}
+
+#correct_or_wrong_area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: bold;
+}
+
 
 /* #answers_area {
     align-items: center;
